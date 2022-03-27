@@ -1,0 +1,33 @@
+---
+- name: install and run the Lamp stack on ec2 on aws
+  hosts: webservers
+  remote_user: root
+  become: yes
+  tasks:
+    - name: install Apache, PHP and MySql packages. 
+      yum: 
+        name:
+          - httpd
+          - php
+          - php-mysql
+          # - mysql-community-server
+          # - mysql-community-client
+        state: installed
+
+    - name: Enabling and Starting the service httpd
+      service:
+        name: httpd
+        enabled: yes
+        state: started
+
+    # - name: Enabling and Starting the service MySQL
+    #   service:
+    #     name: mysqld
+    #     enabled: yes
+    #     state: started
+    
+    - name: Copying the php file
+      copy:
+        src: /home/galileo/devops/index.php
+        dest: /var/www/html/index.php
+        force: yes
