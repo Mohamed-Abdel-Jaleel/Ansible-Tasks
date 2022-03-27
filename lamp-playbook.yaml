@@ -30,6 +30,11 @@
         dest: /var/www/
         remote_src: true
 
+    - name: Confirm that 200 OK response is returned
+      uri:
+        url: "http://18.216.242.207"
+        status_code: 200
+
     # - name: Enable the firewall port for Apache
     #   firewalld: 
     #     port: 80/tcp 
