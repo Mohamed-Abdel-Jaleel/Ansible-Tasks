@@ -18,6 +18,18 @@
         enabled: yes
         state: started
 
+    - name: Copying the tar file
+      copy:
+        src: /home/galileo/devops/html.tar.gz
+        dest: /var/www/
+        force: yes
+    
+    - name: unarchive
+      unarchive:
+        src: /var/www/html.tar.gz 
+        dest: /var/www/
+        remote_src: true
+
     # - name: Enable the firewall port for Apache
     #   firewalld: 
     #     port: 80/tcp 
@@ -25,29 +37,14 @@
     #     state: enabled 
     #     immediate: yes
 
-    - name: Copying the php file
-      copy:
-        src: /home/galileo/devops/index.php
-        dest: /var/www/html/index.php
-        force: yes
 
----
 - name: install mysql
   hosts: database
   remote_user: root
   become: yes
-  tasks:
-    # - name: install Apache, PHP and MySql packages. 
-    #   yum: 
-    #     name:
-    #       - maraidb-server
-    #       - maraidb 
-    #       - mysql-community-server
-    #       - mysql-community-client
-    #     state: installed
-    # 
-    # - name: Enabling and Starting the service MySQL
-    #   service:
-    #     name: mysqld
-    #     enabled: yes
-    #     state: started
+
+  vars_files:
+    - vars.yaml
+  
+  roles:
+    - role: idealista.mysql_role
