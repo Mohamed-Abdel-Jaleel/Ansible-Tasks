@@ -10,8 +10,6 @@
           - httpd
           - php
           - php-mysql
-          # - mysql-community-server
-          # - mysql-community-client
         state: installed
 
     - name: Enabling and Starting the service httpd
@@ -20,14 +18,36 @@
         enabled: yes
         state: started
 
-    # - name: Enabling and Starting the service MySQL
-    #   service:
-    #     name: mysqld
-    #     enabled: yes
-    #     state: started
-    
+    # - name: Enable the firewall port for Apache
+    #   firewalld: 
+    #     port: 80/tcp 
+    #     permanent: true 
+    #     state: enabled 
+    #     immediate: yes
+
     - name: Copying the php file
       copy:
         src: /home/galileo/devops/index.php
         dest: /var/www/html/index.php
         force: yes
+
+---
+- name: install mysql
+  hosts: database
+  remote_user: root
+  become: yes
+  tasks:
+    # - name: install Apache, PHP and MySql packages. 
+    #   yum: 
+    #     name:
+    #       - maraidb-server
+    #       - maraidb 
+    #       - mysql-community-server
+    #       - mysql-community-client
+    #     state: installed
+    # 
+    # - name: Enabling and Starting the service MySQL
+    #   service:
+    #     name: mysqld
+    #     enabled: yes
+    #     state: started

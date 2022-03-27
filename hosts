@@ -1,8 +1,14 @@
-
 [webservers]
 18.216.242.207
-18.220.142.100
 
 [webservers:vars]
-ansible_ssh_private_key_file=~/devops/aws-key.pem
+ansible_ssh_private_key_file=~/devops/aws_key.pem
+ansible_user=ec2-user
+
+
+[database]
+18.220.142.100
+
+[database:vars]
+ansible_ssh_private_key_file=~/devops/aws_key.pem
 ansible_user=ec2-user

@@ -6,7 +6,7 @@
 
 <?php
 
-echo " Mohamed Abedl Jaleel"
+echo " Mohamed Abdel Jaleel"
 
 ?>
 
